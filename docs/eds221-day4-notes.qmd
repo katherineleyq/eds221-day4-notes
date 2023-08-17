@@ -225,11 +225,11 @@ for (i in 1:length(r_seq)) { # outer loop is the growth rates
 
 Drawn out matrix from example above
 
-|              | apple = 1 | apple = 2 | apple = 3  | apple = 4 |
-|--------------|-----------|-----------|------------|-----------|
-| price = \$7  | 7         | 14        | 21         | 28        |
-| price = \$10 | 10        | 20        | 30         | 40        |
-| price = \$25 | 25        | 50        | 75         | 100       |
+|              | apple = 1 | apple = 2 | apple = 3 | apple = 4 |
+|--------------|-----------|-----------|-----------|-----------|
+| price = \$7  | 7         | 14        | 21        | 28        |
+| price = \$10 | 10        | 20        | 30        | 40        |
+| price = \$25 | 25        | 50        | 75        | 100       |
 
 # Warning messages
 
@@ -284,4 +284,32 @@ df_means <- function(df) {
 df_means(mtcars)
 
 df_means(faithful)
+```
+
+Create a function to calculate the Betz Limit:
+
+air density = kg / m\^3
+
+rotor radius = meters
+
+wind velocity = m/s
+
+power = watts
+
+```{r}
+calculate_betz_windpower <- function(air_density, rotor_radius, wind_velocity) {
+  
+  if (wind_velocity > 130) {
+    warning("Whoa, that's a pretty high wind speed. Are you sure?")
+  } 
+  
+else if (rotor_radius < 0) {
+    warning("That's a negative rotor radius")
+  }
+ {
+  0.3 * air_density * pi * (rotor_radius^2) * (wind_velocity^3)
+}
+}
+
+calculate_betz_windpower(air_density = 1.2, rotor_radius = 30, wind_velocity = 50)
 ```
