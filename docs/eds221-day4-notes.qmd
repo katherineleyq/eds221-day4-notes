@@ -6,10 +6,6 @@ execute:
     warning: FALSE
 ---
 
-```{r}
-library(tidyverse)
-```
-
 ## Nested for loops
 
 ```{r}
@@ -225,11 +221,11 @@ for (i in 1:length(r_seq)) { # outer loop is the growth rates
 
 Drawn out matrix from example above
 
-|              | apple = 1 | apple = 2 | apple = 3  | apple = 4 |
-|--------------|-----------|-----------|------------|-----------|
-| price = \$7  | 7         | 14        | 21         | 28        |
-| price = \$10 | 10        | 20        | 30         | 40        |
-| price = \$25 | 25        | 50        | 75         | 100       |
+|              | apple = 1 | apple = 2 | apple = 3 | apple = 4 |
+|--------------|-----------|-----------|-----------|-----------|
+| price = \$7  | 7         | 14        | 21        | 28        |
+| price = \$10 | 10        | 20        | 30        | 40        |
+| price = \$25 | 25        | 50        | 75        | 100       |
 
 # Warning messages
 
@@ -250,38 +246,4 @@ if (!animal %in% c("dog", "goat")) {
 if (windspeed > 130) {
   warning("Whoa, that's a high windspeed! Are you sure that's correct?")
 }
-```
-
-# More functions (afternoon session)
-
-Create a subset within a function, and then return something based on that subset.
-
-```{r}
-dog_choice <- data.frame(dog_name = c("Khora", "Teddy", "Waffle", "Banjo", "Tallie"), 
-                         food = c("everything", "salmon", "pancakes", "chicken", "enchiladas"))
-```
-
-```{r}
-dog_menu <- function(enter_dog_name) {
-  my_subset <- filter(dog_choice, dog_name == enter_dog_name)
-  print(paste("My name is", my_subset$dog_name, "and my favorite food is", my_subset$food))
-}
-
-dog_menu("Tallie")
-```
-
-## Function with a for loop
-
-```{r}
-df_means <- function(df) {
-  for (i in seq_along(df)) {
-    col_mean <- mean(df[[i]], na.rm = TRUE)
-    column_name <- colnames(df[i])
-    print(paste("The mean value of", column_name, "is", round(col_mean, 3)))
-  }
-}
-
-df_means(mtcars)
-
-df_means(faithful)
 ```
