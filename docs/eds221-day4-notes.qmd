@@ -159,3 +159,91 @@ convert_kelvin <- function(temperature_type, temp_kelvin) {
 
 convert_kelvin("metric", 30)
 ```
+
+# Functions (continued)
+
+Starting point
+
+I want to automate estimating the population size over a range of times, and at multiple growth rates (for a constant initial population and carrying capacity).
+
+What might a matrix of population size outputs look like for different times and growth rates?
+
+```{r}
+# brainstorming using pseudo-code
+
+# out_matrix = matrix()
+
+# for (i in sequence(growth_rates)) {
+#  for (j in sequence(time)) {
+# calc_logistric(for i over all j)
+#   store calc_population in out_matrix
+#  }
+# }
+```
+
+```{r}
+logistic_growth <- function(N0, K, r, time) {
+  Nt <- K / (1 + ((K-N0) / N0) * exp(-r * time))
+  print(Nt)
+}
+```
+
+```{r}
+time_vec <- seq(from = 0, to = 35, by = 0.1)
+
+pop_35_vec <- vector(mode = "numeric", length = length(time_vec))
+
+#the following is just for a single growth rate
+for (i in 1:length(time_vec)) {
+  population <- logistic_growth(N0 = 100, K = 6000, r = 0.27, time = time_vec[i])
+  pop_35_vec[i] <- population
+}
+```
+
+```{r}
+# to see how different growth rates affects the data
+# example, change growth rate by 20%
+
+r_seq <- seq(from = 00.20, to = 0.40, by = 0.01)
+
+out_matrix <- matrix(nrow = length(time_vec), ncol = length(r_seq))
+
+for (i in 1:length(r_seq)) { # outer loop is the growth rates
+  for (j in 1:length(time_vec)) { # inner loop is the time sequence values
+    pop <- logistic_growth(N0=100, K=6000, r=r_seq[i], time=time_vec[j])
+    out_matrix[j,i] <- pop # store the value in the appropriate row & column
+  }
+}
+
+# matrix would like like a 3x4 matrix where rows = length(j), columns = length(i)
+
+```
+
+Drawn out matrix from example above
+
+|              | apple = 1 | apple = 2 | apple = 3  | apple = 4 |
+|--------------|-----------|-----------|------------|-----------|
+| price = \$7  | 7         | 14        | 21         | 28        |
+| price = \$10 | 10        | 20        | 30         | 40        |
+| price = \$25 | 25        | 50        | 75         | 100       |
+
+# Warning messages
+
+How can we add our own?
+
+Conditional statements +
+
+-   stop(): Add custom error message
+
+-   warning(): Add custom warning message
+
+```{r}
+# example
+if (!animal %in% c("dog", "goat")) {
+  stop("Oops! Animal must be a dog or a goat.")
+}
+
+if (windspeed > 130) {
+  warning("Whoa, that's a high windspeed! Are you sure that's correct?")
+}
+```
