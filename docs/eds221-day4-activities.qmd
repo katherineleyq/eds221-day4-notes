@@ -6,4 +6,114 @@ execute:
     warnings: FALSE
 ---
 
-## 
+## **Part 1. For loops revisited**
+
+### **Task 1**
+
+Create two sequences, one called `weekdays` that contains days of the week (\"Monday\", \"Tuesday\", \"Wednesday\", etc.) and one called `transects` that contains the series of transect names \"Transect A\", \"Transect B,\"Transect C\". Write a nested for loop that creates a matrix containing the following:
+
+```{r}
+weekdays <- c("Monday", "Tuesday", "Wednesday", "Thursday",
+              "Friday", "Saturday", "Sunday")
+transects <- c("Transect A", "Transect B", "Transect C")
+
+out_matrix <- matrix(nrow = length(weekdays), ncol = length(transects))
+
+for (i in 1:length(transects)) {
+  for (j in 1:length(weekdays)) {
+  new <- paste(weekdays[j],"-", transects[i])
+    out_matrix[j,i] <- new
+  }
+}
+```
+
+## **Part 2. Functions introduced**
+
+### **Task 2**
+
+Write a function called `force` that calculates a force (in Newtons), given inputs of mass (in kg) and acceleration (in ms2��2 (recall: F=ma�=��), and returns a statement \"The resulting force is \_\_\_ Newtons.\"
+
+```{r}
+force <- function(mass, acceleration) {
+ f <- mass * acceleration
+  print(paste("The resulting force is", f, "Newtons."))
+}
+
+force(1, 1)
+```
+
+### **Task 3**
+
+The length:weight relationship for fish is: W=aLb�=���, where where L is total fish length (centimeters), W is the expected fish weight (grams), and a and b are species-dependent parameter values (shown below for several fish from Peyton et al. 2016).
+
+| sci_name            | common_name     |  a_est | b_est |
+|:--------------------|:----------------|-------:|------:|
+| Chanos chanos       | Milkfish        | 0.0905 |  2.52 |
+| Sphyraena barracuda | Great barracuda | 0.0181 |  3.27 |
+| Caranx ignobilis    | Giant trevally  | 0.0353 |  3.05 |
+
+Recreate the table above as a data frame stored as `fish_parms`. Then, write a function called `fish_weight` that allows a user to only enter the *common name* (argument `fish_name`) and *total length* (argument `tot_length`) (in centimeters) of a fish, to return the expected fish weight in grams. Test it out for different species and lengths.
+
+Now, try creating a vector of lengths (e.g. 0 to 100, by increments of 1) and ensuring that your function will calculate the fish weight over a *range* of lengths for the given species (try this for milkfish, storing the output weights as `milkfish_weights`.
+
+```{r}
+fish_parms <- data.frame(sci_name = c("Chanos chanos", 
+                                      "Sphyraena barracuda", 
+                                      "Caranx ignobilis"),
+                         common_name = c("Milkfish",
+                                         "Great barracuda",
+                                         "Giant trevally"),
+                         a_est = c(0.0905, 0.0181, 0.0353),
+                         b_est = c(2.52, 3.27, 3.05))
+```
+
+```{r}
+fish_weight <- function(fish_name, tot_length) {
+  my_subset <- filter(fish_parms, common_name == fish_name)
+  print(my_subset$a_est * (tot_length^my_subset$b_est))
+}
+
+fish_weight("Milkfish", 4)
+```
+
+```{r}
+weights <- seq(from = 0, to = 100, by = 1)
+
+milkfish_weight<- fish_weight("Milkfish",weights)
+```
+
+### **Task 4**
+
+Write a function called `wave_power` that calculates potential ocean wave power given inputs of wave height and period.
+
+Use your `wave_power` function to approximate wave power for a period of 8 seconds, over a range of wave heights from 0 to 3 meters by increments of 0.2 meters.
+
+```{r}
+wave_power <- function(height, period) {
+  p = 0.5*(height^2)*period
+}
+
+height_range <- seq(from = 0, to = 3, by = 0.2)
+  
+answer <- wave_power(height_range, 8) 
+```
+
+### **Task 5 (OPTIONAL)**
+
+```{r}
+approx_wave_power <- function(depth, height, period) {
+  
+  if (depth <= 12) {
+    message("It is shallow")
+    p = 0.81*(height^2)*period
+    print(p)
+  }
+  else if (depth > 12) {
+    message("Is it deep")
+    p = 0.51*(height^2)*period
+    print(p)
+  }
+}
+
+approx_wave_power(1, 1)
+```
