@@ -1,0 +1,128 @@
+---
+title: "eds221-day4-notes"
+format: html
+editor: visual
+execute:
+    warning: FALSE
+---
+
+## Nested for loops
+
+```{r}
+file_prefix <- c("temp", "ph", "salinity")
+file_suffix <- c(1, 2, 3, 4, 5)
+
+for (i in seq_along(file_prefix)) {
+  for (j in seq_along(file_suffix)) {
+    print(paste0(file_prefix[i], "_", file_suffix[j]))
+  }
+}
+```
+
+## Functions
+
+```{r}
+# conceptually 
+
+function_name <- function(bird, dog) {
+  pets = bird + dog
+  return(pets)
+}
+
+```
+
+```{r}
+# function in R
+
+exclaim_age <- function(age) {
+  print(paste("I am", age, "years old!"))
+}
+
+exclaim_age(age = 10)
+```
+
+```{r}
+# side example
+demoFunction <- function(apples, oranges) {
+  print(paste("I love", apples, "and", oranges))
+}
+
+demoFunction(4, 9)
+
+demoFunction(apples = 4, oranges = 9)
+
+demoFunction(oranges = 10, apples = 3)
+```
+
+```{r}
+animal_age <- function(animal, age) {
+  if (animal == "dog") {
+    print(age * 7)
+  } else if (animal == "goat") {
+    print(age * 4.7)
+  }
+}
+
+animal_age("dog", 4)
+```
+
+# Functions interactive
+
+Make a function that doubles a value
+
+```{r}
+double_value <- function(my_dollars) {
+  print(2 * my_dollars)
+}
+
+double_value(my_dollars = 10.13)
+```
+
+```{r}
+monthly_income <- c(42.50, 61.75, 89.50)
+
+double_value(monthly_income)
+```
+
+Create a function that returns an awesome restaurant name given a cool animal and your favorite food
+
+```{r}
+name_restaurant <- function(animal, food) {
+  print(paste0(animal, food))
+}
+
+name_restaurant(animal = "hawk", food = "pizza")
+```
+
+Given temperature in degrees Fahrenheit, write a function that converts it to Celsius
+
+```{r}
+convert_f_to_c <- function(f_temp) {
+  print((f_temp-32)/1.8)
+}
+
+convert_f_to_c(52)
+```
+
+Create a function that given inputs of age and hometown, returns "I am \_ years old, and I'm from \_"
+
+```{r}
+origin_statement <- function(age, hometown) {
+  print(paste("I am", age, "years old, and I'm from", hometown))
+}
+
+origin_statement(age = "25", hometown = "Norwalk")
+```
+
+```{r}
+double_value2 <- function(dollars) {
+  dollars * 2
+}
+double_value2(dollars = 10) * 0.08
+
+class(double_value2(10))
+```
+
+Print statements and return statements
+
+Print: "show me", Return: "store this so I can use it later"
