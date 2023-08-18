@@ -115,5 +115,5 @@ approx_wave_power <- function(depth, height, period) {
   }
 }
 
-approx_wave_power(1, 1)
+approx_wave_power(1, 1, 1)
 ```
